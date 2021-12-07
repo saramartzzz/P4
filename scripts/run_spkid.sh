@@ -14,7 +14,7 @@
 # - db:       directory of the speecon database 
 lists=lists
 w=work
-name_exp=one
+name_exp=one # si poses two no matxacaras els resultats de l'experiment 1
 db=spk_8mu/speecon
 
 # ------------------------

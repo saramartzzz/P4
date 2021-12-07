@@ -1,0 +1,10 @@
+# List of files installed by Meson
+# Does not contain files installed by custom scripts.
+/home/annafalpi/PAV/lib/libpav.a
+/home/annafalpi/PAV/bin/gmm_classify
+/home/annafalpi/PAV/bin/gmm_show
+/home/annafalpi/PAV/bin/gmm_train
+/home/annafalpi/PAV/bin/gmm_verify
+/home/annafalpi/PAV/bin/pearson
+/home/annafalpi/PAV/bin/fmatrix_cut
+/home/annafalpi/PAV/bin/fmatrix_show
