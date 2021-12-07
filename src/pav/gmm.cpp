@@ -1,4 +1,4 @@
-/* Copyright (C) Universitat Politècnica de Catalunya, Barcelona, Spain.
+/* Copyright (C) Universitat Politï¿½cnica de Catalunya, Barcelona, Spain.
  *
  * Permission to copy, use, modify, sell and distribute this software
  * is granted provided this copyright notice appears in all copies.
@@ -100,7 +100,7 @@ namespace upc {
     return log_prob_x;
   }
 
-  /// \TODO Compute the logprob for the whole input data.
+  /// \TODO Compute the logprob for the whole input data. Es decir, para todas las tramas del fichero
   float GMM::logprob(const fmatrix &data) const {    
 
     if (nmix == 0 or vector_size == 0 or vector_size != data.ncol())
