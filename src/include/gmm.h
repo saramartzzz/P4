@@ -1,4 +1,4 @@
-/* Copyright (C) Universitat Politècnica de Catalunya, Barcelona, Spain.
+/* Copyright (C) Universitat Politï¿½cnica de Catalunya, Barcelona, Spain.
  *
  * Permission to copy, use, modify, sell and distribute this software
  * is granted provided this copyright notice appears in all copies.
@@ -53,8 +53,38 @@ namespace upc {
     float gmm_logprob(const float *x) const; ///< compute logprob of input vector x
 
   public:
+  GMM (){ //dubte -->  GMM (size_t vector_size, size_t nmix )
+    vector_size = rand() % 100 + 1;
+    nmix = rand() % 1000 + 1; 
+
+    for(size_t  aux =0 ; aux < nmix; aux++ ){
+      w[aux] = rand() % 10 + 1;
+      global_inv_sigma[aux] = rand() % 10 + 1;
+    }
+    
+    for( size_t aux_col = 0 ; aux_col < nmix; aux_col++ ){
+      for( size_t aux_fil = 0 ; aux_fil < vector_size; aux_fil++ ){
+        mu[aux_col][aux_fil] = rand() % 10 + 1;
+        inv_sigma[aux_col][aux_fil] = rand() % 10 + 1;      
+      }
+    }
+    
+  }
     ///Default contructor
-    GMM() {nmix = 0; vector_size=0;}
+    /*GMM(size_t vector_size_GMM,  // < size of each input data (num. parameters)
+    size_t nmix_GMM,            // < number of mixtures in the GMM
+    const upc::fvector w_GMM,   // !warning classe  w[i]: weight of Mixture i
+    const upc::fmatrix mu_GMM,     //  mean of Mixture i
+    const upc::fmatrix inv_sigma_GMM,   //< inv_sigma[i]
+    const upc::fvector global_inv_sigma_GMM){ // !warining classe 
+      nmix = nmix_GMM; 
+      vector_size = vector_size_GMM;
+      w = w_GMM;
+      mu = mu_GMM;
+      inv_sigma = inv_sigma_GMM;
+      global_inv_sigma = global_inv_sigma_GMM;    
+
+    }*/
 
     ///Define num. of mixtures and size of input samples (num. param.)
     ///The new gmm includes the old values and zeros, for the new ones
