@@ -53,24 +53,12 @@ namespace upc {
     float gmm_logprob(const float *x) const; ///< compute logprob of input vector x
 
   public:
-  GMM (){ //dubte -->  GMM (size_t vector_size, size_t nmix )
-    vector_size = rand() % 100 + 1;
-    nmix = rand() % 1000 + 1; 
-
-    for(size_t  aux =0 ; aux < nmix; aux++ ){
-      w[aux] = rand() % 10 + 1;
-      global_inv_sigma[aux] = rand() % 10 + 1;
-    }
-    
-    for( size_t aux_col = 0 ; aux_col < nmix; aux_col++ ){
-      for( size_t aux_fil = 0 ; aux_fil < vector_size; aux_fil++ ){
-        mu[aux_col][aux_fil] = rand() % 10 + 1;
-        inv_sigma[aux_col][aux_fil] = rand() % 10 + 1;      
-      }
-    }
-    
+  ///Default contructor
+  GMM (){
+    nmix = 0; 
+    vector_size = 0;
   }
-    ///Default contructor
+    
     /*GMM(size_t vector_size_GMM,  // < size of each input data (num. parameters)
     size_t nmix_GMM,            // < number of mixtures in the GMM
     const upc::fvector w_GMM,   // !warning classe  w[i]: weight of Mixture i

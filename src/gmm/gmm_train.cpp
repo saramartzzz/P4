@@ -48,39 +48,20 @@ int main(int argc, const char *argv[]) {
   read_data(input_dir, input_ext, filenames, data);
   cout << "DATA: " << data.nrow() << " x " << data.ncol() << endl;
 
-  
-  //size_t vector_size_GMM = rand() % 1000 + 1;  
-  //size_t nmix_GMM = rand() % 100 + 1;
-
-  GMM gmm();
-  
-  //cout << "Vector_size: " << gmm.vector_size << " nmix: " << nmix_GMM << endl;
- /* upc::fvector w_GMM;
-  upc::fvector global_inv_sigma_GMM;
-  for( int aux =0 ; aux < nmix_GMM; aux++ ){
-      w_GMM.at(aux) = rand() % 10 + 1;
-      global_inv_sigma_GMM.at(aux) = rand() % 10 + 1;
-  }
-  for( int aux_col = 0 ; aux_col < nmix_GMM; aux_col++ ){
-    for( int aux_fil = 0 ; aux_fil < nmix_GMM; aux_fil++ ){
-
-      mu_GMM.at(aux_col, aux_fil) = rand() % 10 + 1;
-      inv_sigma_GMM.at(aux_col, aux_fil) = rand() % 10 + 1;      
-  }*/
+  GMM gmm;
   
   //GMM gmm(vector_size_GMM, nmix_GMM, upc::fvector w_GMM, upc::fmatrix mu_GMM, upc::fmatrix inv_sigma_GMM, upc::fvector global_inv_sigma_GMM);
 
   /// \TODO Initialize GMM from data; initially, you should implement random initialization.
-  /// 
+  /// \DONE  Inicialització aleatòria.
+ 
   /// Other alternatives are: vq, em_split... See the options of the program and place each
   /// initicialization accordingly.
-
-
-
   switch (init_method) {
   case 0:
+    gmm.random_init(data,nmix) ; // crida a la funció ja implementada
     break;
-  case 1:
+  case 1: //la resta de casos per les alternatives.
     break;
   case 2:
     break;
@@ -90,6 +71,9 @@ int main(int argc, const char *argv[]) {
 
   /// \TODO Apply EM to estimate GMM parameters (complete the funcion in gmm.cpp)
 
+  gmm.em(data, em_iterations, em_threshold, verbose);
+
+  /// \DONE
 
   //Create directory, if it is needed
   gmm_filename.checkDir();

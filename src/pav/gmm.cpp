@@ -101,6 +101,7 @@ namespace upc {
   }
 
   /// \TODO Compute the logprob for the whole input data. //calcular per tote les trames del fitxer.
+  /// \DONE
   float GMM::logprob(const fmatrix &data) const {    
 
     if (nmix == 0 or vector_size == 0 or vector_size != data.ncol())
@@ -111,8 +112,10 @@ namespace upc {
 
     for (n=0; n<data.nrow(); ++n) {
       /// \TODO Compute the logprob of a single frame of the input data; you can use gmm_logprob() above.
+      lprob = lprob + gmm_logprob(data[n]);
+      /// \DONE
     }    
-    return lprob/n;
+    return lprob/n; // es retorna normalitzada
   }
 
 
@@ -201,14 +204,19 @@ namespace upc {
     float old_prob=-1e34, new_prob=-1e34, inc_prob=-1e34;
     
     fmatrix weights(data.nrow(), nmix);
-    for (iteration=0; iteration<max_it; ++iteration) {
+    for (iteration=0; (iteration<max_it) && (inc_prob >= inc_threshold); ++iteration) {
       /// \TODO
 	  // Complete the loop in order to perform EM, and implement the stopping criterion.
 	  //
 	  // EM loop: em_expectation + em_maximization.
 	  //
       // Update old_prob, new_prob and inc_prob in order to stop the loop if logprob does not
-      // increase more than inc_threshold.
+      // increase more than inc_threshold. --> && (inc_prob >= inc_threshold)
+    /// \DONE
+    new_prob = em_expectation(data, weights);
+    new_prob = new_prob - old_prob;
+    old_prob = new_prob;
+
       if (verbose & 01)
 	cout << "GMM nmix=" << nmix << "\tite=" << iteration << "\tlog(prob)=" << new_prob << "\tinc=" << inc_prob << endl;
     }
