@@ -212,8 +212,7 @@ for cmd in $*; do
 	   # lists/final/verif.test.candidates
        ##\DONE
        compute_$FEAT $db_test $lists/final/class.test
-       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/verif.users | 
-       | $lists/final/verif.test $lists/final/verif.test.candidates || exit 1 # poso la pipe | per poder fer salt de linia
+       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/verif.users $lists/final/verif.test $lists/final/verif.test.candidates || exit 1 
        
        
 
