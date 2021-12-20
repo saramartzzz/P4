@@ -40,7 +40,7 @@ if [[ $# < 1 ]]; then
    echo "  classerr: count errors in speaker recognition"
    echo "trainworld: estimate world model for speaker verification"
    echo "    verify: test gmm in verification task"
-   echo " verifyerr: count errors of verify"
+   echo " verif_err: count errors of verify"
    echo "finalclass: reserved for final test in the classification task"
    echo "finalverif: reserved for final test in the verification task"
    echo ""
@@ -149,7 +149,7 @@ for cmd in $*; do
            echo
        done
    elif [[ $cmd == test ]]; then
-       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
+       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
 
    elif [[ $cmd == classerr ]]; then
        if [[ ! -s $w/class_${FEAT}_${name_exp}.log ]] ; then
@@ -212,7 +212,11 @@ for cmd in $*; do
 	   # lists/final/verif.test.candidates
        ##\DONE
        compute_$FEAT $db_test $lists/final/class.test
+<<<<<<< HEAD
        gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/verif.users $lists/final/verif.test $lists/final/verif.test.candidates || exit 1 # poso la pipe | per poder fer salt de linia
+=======
+       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/verif.users $lists/final/verif.test $lists/final/verif.test.candidates || exit 1 
+>>>>>>> 13809104136e686bebc8ab159172ba983e27b360
        
        
 

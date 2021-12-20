@@ -26,13 +26,8 @@ int read_gmms(const Directory &dir, const Ext &ext, const vector<string> &gmm_fi
 float verify(const GMM &gmm_candidate, const fmatrix &dat) {
 
   //TODO: implement verification score based on gmm of the candidate
-  /*
-    lprobcand is an informative values to be printed as debug information.
-    The decision is based on the returned value
-   */
 
-  float score = 0.0F;
-  return score;
+  return gmm_candidate.logprob(dat); // logprob de dat en gmm_candidate
 }
 
 
@@ -41,13 +36,11 @@ float verify(const GMM &gmm_candidate, const GMM & gmm_world, const fmatrix &dat
 	     float &lprobcand, float &lprobbackground) {
 
   //TODO: implement verification score based on gmm of the candidate and 'world' model
-  float score = 0.0F;
-  lprobcand = 0.0F;
-  lprobbackground = 0.0F;
 
-
-  return score;
-
+  lprobcand = gmm_candidate.logprob(dat);
+  lprobbackground = gmm_world.logprob(dat);
+ 
+  return lprobcand - lprobbackground;
 }
 
 
@@ -170,8 +163,8 @@ int usage(const char *progname, int err)  {
        << "  -e ext\tExtension of the feature files (def. \"" << DEF_FEAT_EXT << "\")\n"
        << "  -D dir\tDirectory of the gmm files (def. \".\")\n"
        << "  -E ext\tExtension of the gmm files (def. \"" << DEF_GMM_EXT << "\")\n"
-       << "  -w name\tName of the \"background\" GMM (def. do not use world model)\n"
-       << "         \tname does not include directory and extension:\n"
+       << "  -w name\tName of the \"background\" GMM (def. do not use world model\")\n"
+       << "         \tnname does not include directory and extension:\n"
        << "         \tthe dir option (-D) and ext (-e) will be added\n\n";
 
   cerr << "Each \"trial\" is defined by the speech files and the candidate (pretended user)\n"
