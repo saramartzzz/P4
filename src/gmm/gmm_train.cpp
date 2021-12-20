@@ -49,31 +49,28 @@ int main(int argc, const char *argv[]) {
   cout << "DATA: " << data.nrow() << " x " << data.ncol() << endl;
 
   GMM gmm;
-  
-  //GMM gmm(vector_size_GMM, nmix_GMM, upc::fvector w_GMM, upc::fmatrix mu_GMM, upc::fmatrix inv_sigma_GMM, upc::fvector global_inv_sigma_GMM);
 
   /// \TODO Initialize GMM from data; initially, you should implement random initialization.
-  /// \DONE  Inicialització aleatòria.
- 
+  /// 
   /// Other alternatives are: vq, em_split... See the options of the program and place each
   /// initicialization accordingly.
   switch (init_method) {
   case 0:
-    gmm.random_init(data,nmix) ; // crida a la funció ja implementada
+  	gmm.random_init(data, nmix);
     break;
-  case 1: //la resta de casos per les alternatives.
+  case 1:
+	gmm.vq_lbg(data, nmix, init_iterations, init_threshold, verbose);
     break;
   case 2:
+	gmm.em_split(data, nmix, init_iterations, init_threshold, verbose);
     break;
   default:
     ;
   }
 
   /// \TODO Apply EM to estimate GMM parameters (complete the funcion in gmm.cpp)
-
   gmm.em(data, em_iterations, em_threshold, verbose);
 
-  /// \DONE
 
   //Create directory, if it is needed
   gmm_filename.checkDir();
@@ -89,19 +86,18 @@ int main(int argc, const char *argv[]) {
 }
 
 int usage(const char *progname, int err)  {
-  cerr << "\n";
   cerr << "Usage: " << progname << " [options] list_of_train_files\n";
   cerr << "Usage: " << progname << " [options] -F train_file1 ...\n\n";
   
   cerr << "Options can be: \n"
        << "  -d dir\tDirectory of the input files (def. \".\")\n"
        << "  -e ext\tExtension of the input files (def. \"" << DEF_INPUT_EXT << "\")\n"
-       << "  -g name\tName of output GMM file  (def. " << DEF_GMMFILE << ")\n"
        << "  -m mix\tNumber of mixtures (def. " << DEF_NMIXTURES << ")\n"
+       << "  -g name\tName of output GMM file  (def. " << DEF_GMMFILE << ")\n"
        << "  -N ite\tNumber of final iterations of EM (def. " << DEF_ITERATIONS << ")\n"
        << "  -T thr\tLogProbability threshold of final EM iterations (def. " << DEF_THR << ")\n"
        << "  -i init\tInitialization method: 0=random, 1=VQ, 2=EM split (def. 0)\n"
-       << "  -v int\tBit code to control \"verbosity\" (eg: 5 => 00000101" << ")\n";
+       << "  -v int\tBit code to control \"verbosity\"; eg: 5 => 00000101" << ")\n";
   cerr << "\nIn case you use initialization by VQ or EM split, the following options also apply: \n"
        << "  -n ite\tNumber of iterations in the initialization of the GMM (def. " << DEF_ITERATIONS << ")\n"
        << "  -t thr\tLogProbability threshold for the EM iterations in initialization (def. " << DEF_THR << ")\n";
@@ -151,12 +147,12 @@ int read_options(int ArgC, const char *ArgV[], Directory &input_dir, Ext &input_
   //Save name of files in vector 'filenames'
   if (use_list) {
     if (ArgC != 1) {
-      cerr << "ERROR: no list of files provided" << endl;
+      cerr << "ERROR no list of files provided" << endl;
       return -2;
     }
     ifstream is(ArgV[0]);
     if (!is.good()) {
-      cerr << "ERROR: opening list of files: " << ArgV[0] << endl;
+      cerr << "ERROR opening list of files: " << ArgV[0] << endl;
       return -3;
     }
     string s;

@@ -1,4 +1,4 @@
-/* Copyright (C) Universitat Politï¿½cnica de Catalunya, Barcelona, Spain.
+/* Copyright (C) Universitat Politècnica de Catalunya, Barcelona, Spain.
  *
  * Permission to copy, use, modify, sell and distribute this software
  * is granted provided this copyright notice appears in all copies.
@@ -100,8 +100,7 @@ namespace upc {
     return log_prob_x;
   }
 
-  /// \TODO Compute the logprob for the whole input data. //calcular per tote les trames del fitxer.
-  /// \DONE
+  /// \TODO Compute the logprob for the whole input data.
   float GMM::logprob(const fmatrix &data) const {    
 
     if (nmix == 0 or vector_size == 0 or vector_size != data.ncol())
@@ -112,10 +111,9 @@ namespace upc {
 
     for (n=0; n<data.nrow(); ++n) {
       /// \TODO Compute the logprob of a single frame of the input data; you can use gmm_logprob() above.
-      lprob = lprob + gmm_logprob(data[n]);
-      /// \DONE
+	  lprob += gmm_logprob(data[n]);
     }    
-    return lprob/n; // es retorna normalitzada
+    return lprob/n;
   }
 
 
@@ -176,8 +174,7 @@ namespace upc {
     if (data.ncol() != vector_size)
       return -1.0;
 
-    if (weights.nrow() != data.nrow() or
-	weights.ncol() != nmix)
+    if (weights.nrow() != data.nrow() or weights.ncol() != nmix)
       weights.resize(data.nrow(), nmix);
 
     //use log(prob) for intermediate computation, to avoid underflow
@@ -191,11 +188,12 @@ namespace upc {
       }
 
       for (k=0; k < nmix; ++k)
-	weights[n][k] = exp(weights[n][k]-log_prob_x);
-      log_prob_total += log_prob_x;
+	    weights[n][k] = exp(weights[n][k]-log_prob_x);
+       log_prob_total += log_prob_x;
     }
 
     log_prob_total /= data.nrow();
+
     return log_prob_total;
   }
 
@@ -204,21 +202,25 @@ namespace upc {
     float old_prob=-1e34, new_prob=-1e34, inc_prob=-1e34;
     
     fmatrix weights(data.nrow(), nmix);
-    for (iteration=0; (iteration<max_it) && (inc_prob >= inc_threshold); ++iteration) {
-      /// \TODO
-	  // Complete the loop in order to perform EM, and implement the stopping criterion.
-	  //
-	  // EM loop: em_expectation + em_maximization.
-	  //
-      // Update old_prob, new_prob and inc_prob in order to stop the loop if logprob does not
-      // increase more than inc_threshold. --> && (inc_prob >= inc_threshold)
-    /// \DONE
-    new_prob = em_expectation(data, weights);
-    new_prob = new_prob - old_prob;
-    old_prob = new_prob;
+    for (iteration=0; iteration<max_it; ++iteration) {
+      /// \TODO Complete the loop in order to perform EM, and implement the stopping criterion.
+	  ///
+	  /// EM loop: em_expectation + em_maximization.
+	  ///
+      /// Update old_prob, new_prob and inc_prob in order to stop the loop if logprob does not
+      /// increase more than inc_threshold.
+  		new_prob = em_expectation(data, weights);
+  		em_maximization(data, weights);
 
-      if (verbose & 01)
-	cout << "GMM nmix=" << nmix << "\tite=" << iteration << "\tlog(prob)=" << new_prob << "\tinc=" << inc_prob << endl;
+		inc_prob = new_prob - old_prob;
+		old_prob = new_prob;
+
+        if (verbose & 01) {
+	        cout << "GMM nmix=" << nmix << "\tite=" << iteration
+			     << "\tlog(prob)=" << new_prob << "\tinc=" << inc_prob << endl;
+		}
+
+		if (fabs(inc_prob) < inc_threshold) return 0;
     }
     return 0;
   }

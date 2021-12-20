@@ -17,7 +17,7 @@ lists=lists
 w=work
 name_exp=one # si poses two no matxacaras els resultats de l'experiment 1
 db=spk_8mu/speecon
-name_exp = spk_8mu/sr_test
+name_exp=spk_8mu/sr_test
 
 
 
@@ -40,7 +40,7 @@ if [[ $# < 1 ]]; then
    echo "  classerr: count errors in speaker recognition"
    echo "trainworld: estimate world model for speaker verification"
    echo "    verify: test gmm in verification task"
-   echo " verifyerr: count errors of verify"
+   echo " verif_err: count errors of verify"
    echo "finalclass: reserved for final test in the classification task"
    echo "finalverif: reserved for final test in the verification task"
    echo ""
@@ -145,11 +145,11 @@ for cmd in $*; do
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
            echo $name ---- 
-           gmm_train -i 0 -v 1 -T 0.001 -N 5 -m 2 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           gmm_train -i 0 -v 1 -T 0.001 -N 5 -m 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
    elif [[ $cmd == test ]]; then
-       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list  $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
+       (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
 
    elif [[ $cmd == classerr ]]; then
        if [[ ! -s $w/class_${FEAT}_${name_exp}.log ]] ; then
