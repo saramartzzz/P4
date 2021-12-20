@@ -1,58 +1,60 @@
-Build started at 2021-11-22T13:27:52.116907
-Main binary: /usr/bin/python3
-Build Options: -Dprefix=/home/annafalpi/PAV -Dlibdir=lib -Dbuildtype=release
-Python system: Linux
+Build started at 2021-12-13T14:04:18.903787
+Main binary: /usr/local/opt/python@3.9/bin/python3.9
+Build Options: -Dprefix=/Users/saramartinezmardones/PAV -Dlibdir=lib -Dbuildtype=release
+Python system: Darwin
 The Meson build system
-Version: 0.53.2
-Source dir: /home/annafalpi/PAV/P4
-Build dir: /home/annafalpi/PAV/P4/build/release
+Version: 0.59.2
+Source dir: /Users/saramartinezmardones/Desktop/ETSETB UPC/3B/PAV/LAB/P4
+Build dir: /Users/saramartinezmardones/Desktop/ETSETB UPC/3B/PAV/LAB/P4/build/release
 Build type: native build
 Project name: Práctica 4 de PAV - reconocimiento y verificación del locutor
 Project version: v2.0
-No CXXFLAGS in the environment, not changing global flags.
-No LDFLAGS in the environment, not changing global flags.
-No CPPFLAGS in the environment, not changing global flags.
 Sanity testing C++ compiler: c++
 Is cross compiler: False.
-Sanity check compiler command line: c++ /home/annafalpi/PAV/P4/build/release/meson-private/sanitycheckcpp.cc -o /home/annafalpi/PAV/P4/build/release/meson-private/sanitycheckcpp.exe -pipe -D_FILE_OFFSET_BITS=64
+Sanity check compiler command line: c++ sanitycheckcpp.cc -o sanitycheckcpp.exe
 Sanity check compile stdout:
 
 -----
 Sanity check compile stderr:
 
 -----
-Running test binary command: /home/annafalpi/PAV/P4/build/release/meson-private/sanitycheckcpp.exe
-C++ compiler for the build machine: c++ (gcc 9.3.0 "c++ (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0")
-C++ linker for the build machine: c++ ld.bfd 2.34
-No CXXFLAGS in the environment, not changing global flags.
-No LDFLAGS in the environment, not changing global flags.
-No CPPFLAGS in the environment, not changing global flags.
+Running test binary command: /Users/saramartinezmardones/Desktop/ETSETB UPC/3B/PAV/LAB/P4/build/release/meson-private/sanitycheckcpp.exe
+C++ compiler for the host machine: c++ (clang 10.0.1 "Apple LLVM version 10.0.1 (clang-1001.0.46.4)")
+C++ linker for the host machine: c++ ld64 450.3
 Sanity testing C++ compiler: c++
 Is cross compiler: False.
-Sanity check compiler command line: c++ /home/annafalpi/PAV/P4/build/release/meson-private/sanitycheckcpp.cc -o /home/annafalpi/PAV/P4/build/release/meson-private/sanitycheckcpp.exe -pipe -D_FILE_OFFSET_BITS=64
+Sanity check compiler command line: c++ sanitycheckcpp.cc -o sanitycheckcpp.exe
 Sanity check compile stdout:
 
 -----
 Sanity check compile stderr:
 
 -----
-Running test binary command: /home/annafalpi/PAV/P4/build/release/meson-private/sanitycheckcpp.exe
-C++ compiler for the host machine: c++ (gcc 9.3.0 "c++ (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0")
-C++ linker for the host machine: c++ ld.bfd 2.34
+Running test binary command: /Users/saramartinezmardones/Desktop/ETSETB UPC/3B/PAV/LAB/P4/build/release/meson-private/sanitycheckcpp.exe
+C++ compiler for the build machine: c++ (clang 10.0.1 "Apple LLVM version 10.0.1 (clang-1001.0.46.4)")
+C++ linker for the build machine: c++ ld64 450.3
 Build machine cpu family: x86_64
 Build machine cpu: x86_64
 Host machine cpu family: x86_64
 Host machine cpu: x86_64
 Target machine cpu family: x86_64
 Target machine cpu: x86_64
-Program doxygen found: YES (/usr/bin/doxygen)
+Program ln found: YES (/bin/ln)
+Program ln found: YES (/bin/ln)
+Program ln found: YES (/bin/ln)
+Program ln found: YES (/bin/ln)
+Program doxygen found: YES (/usr/local/bin/doxygen)
 Configuring Doxyfile using configuration
+Program ln found: YES (/bin/ln)
+Program ln found: YES (/bin/ln)
+Program ln found: YES (/bin/ln)
+Program ln found: YES (/bin/ln)
 Build targets in project: 17
 
-Found ninja-1.10.0 at /usr/bin/ninja
+Found ninja-1.10.2 at /usr/local/bin/ninja
 Running compile:
-Working directory:  /tmp/tmplkkz2kxv
-Command line:  c++ /tmp/tmplkkz2kxv/testfile.cpp -o /tmp/tmplkkz2kxv/output.obj -pipe -D_FILE_OFFSET_BITS=64 -c -std=c++11 
+Working directory:  /var/folders/0w/ms9mbfgn5wl_rxpqw3y6z_8w0000gn/T/tmpywrorw5o
+Command line:  c++ /var/folders/0w/ms9mbfgn5wl_rxpqw3y6z_8w0000gn/T/tmpywrorw5o/testfile.cpp -o /var/folders/0w/ms9mbfgn5wl_rxpqw3y6z_8w0000gn/T/tmpywrorw5o/output.obj -c -std=c++11 
 
 Code:
  int i = static_cast<int>(0);
@@ -62,15 +64,14 @@ Compiler stderr:
  
 Compiler accepts -std=c++11: YES
 Running compile:
-Working directory:  /home/annafalpi/PAV/P4/build/release/meson-private/tmph8up7b0d
-Command line:  c++ /home/annafalpi/PAV/P4/build/release/meson-private/tmph8up7b0d/testfile.cpp -o /home/annafalpi/PAV/P4/build/release/meson-private/tmph8up7b0d/output.obj -pipe -c -D_FILE_OFFSET_BITS=64 -O0 -fpermissive --print-search-dirs 
+Working directory:  /Users/saramartinezmardones/Desktop/ETSETB UPC/3B/PAV/LAB/P4/build/release/meson-private/tmpdao_6b94
+Command line:  c++ /Users/saramartinezmardones/Desktop/ETSETB UPC/3B/PAV/LAB/P4/build/release/meson-private/tmpdao_6b94/testfile.cpp -o /Users/saramartinezmardones/Desktop/ETSETB UPC/3B/PAV/LAB/P4/build/release/meson-private/tmpdao_6b94/output.obj -c -O0 -fpermissive -Werror=implicit-function-declaration -Werror=unknown-warning-option -Werror=unused-command-line-argument -Werror=ignored-optimization-argument --print-search-dirs 
 
 Code:
  
 Compiler stdout:
- install: /usr/lib/gcc/x86_64-linux-gnu/9/
-programs: =/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/bin/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/bin/
-libraries: =/usr/lib/gcc/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/9/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../x86_64-linux-gnu/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../lib/:/lib/x86_64-linux-gnu/9/:/lib/x86_64-linux-gnu/:/lib/../lib/:/usr/lib/x86_64-linux-gnu/9/:/usr/lib/x86_64-linux-gnu/:/usr/lib/../lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../../x86_64-linux-gnu/lib/:/usr/lib/gcc/x86_64-linux-gnu/9/../../../:/lib/:/usr/lib/
+ programs: =/Library/Developer/CommandLineTools/usr/bin
+libraries: =/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1
 
 Compiler stderr:
  

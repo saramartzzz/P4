@@ -17,7 +17,7 @@ lists=lists
 w=work
 name_exp=one # si poses two no matxacaras els resultats de l'experiment 1
 db=spk_8mu/speecon
-name_exp = spk_8mu/sr_test
+name_exp=spk_8mu/sr_test
 
 
 
@@ -212,8 +212,7 @@ for cmd in $*; do
 	   # lists/final/verif.test.candidates
        ##\DONE
        compute_$FEAT $db_test $lists/final/class.test
-       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/verif.users | 
-       | $lists/final/verif.test $lists/final/verif.test.candidates || exit 1 # poso la pipe | per poder fer salt de linia
+       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/verif.users $lists/final/verif.test $lists/final/verif.test.candidates || exit 1 # poso la pipe | per poder fer salt de linia
        
        
 

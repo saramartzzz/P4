@@ -1,5 +1,5 @@
 [options]
-prefix = /home/annafalpi/PAV
+prefix = /Users/saramartinezmardones/PAV
 libdir = lib
 buildtype = release
 
