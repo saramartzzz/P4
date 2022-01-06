@@ -33,8 +33,28 @@ ejercicios indicados.
   principal (`sox`, `$X2X`, `$FRAME`, `$WINDOW` y `$LPC`). Explique el significado de cada una de las 
   opciones empleadas y de sus valores.
 
+ A a linia  43 i 44 del fixter "wav2lp.sh" hi trobem el següent codi:
+ 
+ *sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
+	$LPC -l 240 -m $lpc_order > $base.lp
+  
+ Les diferents ordres serveixen per:
+ sox: rina de processat de senyals d'àudio que permet, entre altres, canviar la codificació dels fitxers. S'invoca a partir de les opcions:
+   - -t: inica el tipus de fitxer d'entrada, en aquest cas RAW
+   - -e: Indica en quin tipus de codificació del fitxer d'entrada (el valor signed indica que es tracta de signed integer).
+   - -b: indica el nombre de bits amb el que s'ha codificat el fitxer d'entrada 
+ - X2X: conversió enters de 16 bits a reals de 4 bytes
+ - LPC: ordre del conjunt SPTK que permet fer el càlcul de l'envolvent espectral mitjançant un filtre de predicció lineal. Per invocar aquesta operació es fa ús dels següents paràmetres:
+   - -l 240 --> tamany de la finestra
+  - - m $LPC_order --> ordre del diltre LPC, que entrarà per paràmetre quan s'invoqui l'script "wav2lp.sh" a l'script general "run_spkid.sk"
+
 - Explique el procedimiento seguido para obtener un fichero de formato *fmatrix* a partir de los ficheros de
   salida de SPTK (líneas 45 a 47 del script `wav2lp.sh`).
+  
+*ncol=$((lpc_order+1)) # lpc p =>  (gain a1 a2 ... ap) 
+*nrow=`$X2X +fa < $base.lp | wc -l | perl -ne 'print $_/'$ncol', "\n";'` 
+
+L'objectiu del codi es guardar per columnes la informació extreta per cada caracteística per tant, primerament, cal definir el combre de columnes que tindrà el fitxer fmatrix. El nombre de columnes serà igual al nombre de coeficients de la parametrtzació +1 ja que l'enta de SPTK retorna en primer lloc el guany. A partir d'aquí les variables wc (word count) i wl (word line) compten el nombre de paraules del fitxer temporal (que es troba expressat en ASCII)
 
   * ¿Por qué es conveniente usar este formato (u otro parecido)? Tenga en cuenta cuál es el formato de
     entrada y cuál es el de resultado.
