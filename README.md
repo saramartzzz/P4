@@ -177,12 +177,42 @@ ejercicios indicados.**
 
 Complete el código necesario para entrenar modelos GMM.
 
-- Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
-  para sus dos primeros coeficientes de MFCC.
+- **Inserte una gráfica que muestre la función de densidad de probabilidad modelada por el GMM de un locutor
+  para sus dos primeros coeficientes de MFCC**.
+ 
+ A la següent imatge podem veure el model del locutor de la SES061: (parametritzat amb MFCC)
+ 
+ `plot_gmm_feat work/gmm/mfcc/SES061.gmm -g blue -x 4 -y 5 &`
+ 
+ Recordem, 4 i 5 perquè els coeficients dos i tres estan registrats en les files 4 i 5 del fixter fmatrix.
+ 
+ <img width="440" alt="image" src="https://user-images.githubusercontent.com/91891270/148549584-8607a246-a4a6-462b-987c-7304dba8bd0b.png">
+ 
+ Amb la comanda següent superposarem el model amb les mostres de la sessió per comprovar si s'ajusta bé o no:
+ 
+ `plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK06/SES061/SA061S* -g blue -x 4 -y 5 &`
+ 
+<img width="431" alt="image" src="https://user-images.githubusercontent.com/91891270/148549831-9ac839b4-b15c-47af-b422-347912509c55.png">
+ 
+Veiem la dispesió de les mostres representa el mateix resultat que el que haviem obtingut amb Matlab i que el model és prou bo, ja que s'ajusta bé. Això que té sentit perquè hem pentrenat la GMM amb 60 gaussianes durant 90 interacions.
   
-- Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
+- **Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
-  del modelado GMM para diferenciar las señales de uno y otro.
+  del modelado GMM para diferenciar las señales de uno y otro.**
+  
+  Hem representat (següint les comandes anteriors) els models l'altres sessions:
+
+`plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK02/SES022/SA022S* -g blue -x 4 -y 5 &`
+  <img width="418" alt="image" src="https://user-images.githubusercontent.com/91891270/148550694-2cb9698a-17a4-41af-8c0a-22b46db5c0cc.png"> 
+  
+  ` plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK08/SES087/SA087S* -g blue -x 4 -y 5 &`
+  
+<img width="416" alt="image" src="https://user-images.githubusercontent.com/91891270/148550616-41469da5-eb4f-40e9-8104-7e715885044d.png">
+
+
+Veiem que no en tots els casos el model GMM dels coeficients 2 i 3 s'ajusta igual de bé a la parametrització del senyal. Això és podria millorar amb més iteracions o bé implenentant una iniciañotzació VQ de les guassianes.
+
+
 
 ### Reconocimiento del locutor.
 
