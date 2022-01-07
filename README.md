@@ -86,17 +86,15 @@ ejercicios indicados.**
      
   <img width="617" alt="image" src="https://user-images.githubusercontent.com/91891270/148525987-9726f45d-205d-47ec-ac4c-e5571512757e.png">
 
-	Observem un fitxer fmatrix qualsevol per saben quina columna es troben els coeficients 2 i 3. 
-	
-	Veiem que es troben en la columna 4 i 5. Per tal de generar un fitxer on només hi hagi els valors d'aquests coeficients fem:
+	Observem un fitxer fmatrix qualsevol. Per tal de generar un fitxer on només hi hagi els valors d'aquests dos coeficients fem:
 
-	Observem la parametrització de la sessió SES061
+	(Observem la parametrització de la sessió SES061)
 
-	`fmatrix_show work/lp/BLOCK06/SES061/*.lp | egrep '^\[' | cut -f4,5 > lp_coefs`
+	`fmatrix_show work/lp/BLOCK06/SES061/*.lp | egrep '^\[' | cut -f2,3 > lp_coefs`
 
-	`fmatrix_show work/lpcc/BLOCK06/SES061/*.lpcc | egrep '^\[' | cut -f4,5 > lpcc_coefs.txt`
+	`fmatrix_show work/lpcc/BLOCK06/SES061/*.lpcc | egrep '^\[' | cut -f2,3 > lpcc_coefs.txt`
 
-	`fmatrix_show work/mfcc/BLOCK06/SES061/*.mfcc | egrep '^\[' | cut -f4,5 > mfcc_coefs.txt`
+	`fmatrix_show work/mfcc/BLOCK06/SES061/*.mfcc | egrep '^\[' | cut -f2,3 > mfcc_coefs.txt`
 
 
  	 Una vegada generat el fitxer representarem els resultats via Matlab.
@@ -182,15 +180,14 @@ Complete el código necesario para entrenar modelos GMM.
  
  A la següent imatge podem veure el model del locutor de la SES061: (parametritzat amb MFCC)
  
- `plot_gmm_feat work/gmm/mfcc/SES061.gmm -g blue -x 4 -y 5 &`
+ `plot_gmm_feat work/gmm/mfcc/SES061.gmm -g blue -x 2 -y3 &`.
  
- Recordem, 4 i 5 perquè els coeficients dos i tres estan registrats en les files 4 i 5 del fixter fmatrix.
  
  <img width="440" alt="image" src="https://user-images.githubusercontent.com/91891270/148549584-8607a246-a4a6-462b-987c-7304dba8bd0b.png">
  
  Amb la comanda següent superposarem el model amb les mostres de la sessió per comprovar si s'ajusta bé o no:
  
- `plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK06/SES061/SA061S* -g blue -x 4 -y 5 &`
+ `plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK06/SES061/SA061S* -g blue -x 2 -y 3 &`
  
 <img width="431" alt="image" src="https://user-images.githubusercontent.com/91891270/148549831-9ac839b4-b15c-47af-b422-347912509c55.png">
  
@@ -202,10 +199,10 @@ Veiem la dispesió de les mostres representa el mateix resultat que el que havie
   
   Hem representat (següint les comandes anteriors) els models l'altres sessions:
 
-`plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK02/SES022/SA022S* -g blue -x 4 -y 5 &`
+`plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK02/SES022/SA022S* -g blue -x 2 -y 4 &`
   <img width="418" alt="image" src="https://user-images.githubusercontent.com/91891270/148550694-2cb9698a-17a4-41af-8c0a-22b46db5c0cc.png"> 
   
-  ` plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK08/SES087/SA087S* -g blue -x 4 -y 5 &`
+  ` plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK08/SES087/SA087S* -g blue -x 2 -y 3 &`
   
 <img width="416" alt="image" src="https://user-images.githubusercontent.com/91891270/148550616-41469da5-eb4f-40e9-8104-7e715885044d.png">
 
