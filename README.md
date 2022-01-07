@@ -199,12 +199,12 @@ Veiem la dispesió de les mostres representa el mateix resultat que el que havie
   
   Hem representat (següint les comandes anteriors) els models l'altres sessions:
 
-`plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK02/SES022/SA022S* -g blue -x 2 -y 4 &`
-  <img width="418" alt="image" src="https://user-images.githubusercontent.com/91891270/148550694-2cb9698a-17a4-41af-8c0a-22b46db5c0cc.png"> 
+`plot_gmm_feat work/gmm/mfcc/SES022.gmm work/mfcc/BLOCK02/SES022/SA022S* -g blue -x 2 -y 3 &`
+<img width="449" alt="image" src="https://user-images.githubusercontent.com/91891270/148566674-87472608-dcfb-440c-b4c3-1ec6482d7b85.png">
   
-  ` plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK08/SES087/SA087S* -g blue -x 2 -y 3 &`
+  `plot_gmm_feat work/gmm/mfcc/SES087.gmm work/mfcc/BLOCK08/SES087/SA087S* -g blue -x 2 -y 3 &`
   
-<img width="416" alt="image" src="https://user-images.githubusercontent.com/91891270/148550616-41469da5-eb4f-40e9-8104-7e715885044d.png">
+<img width="454" alt="image" src="https://user-images.githubusercontent.com/91891270/148566781-0b37f10a-ecd3-4d9e-8d94-2a0892456334.png">
 
 
 Veiem que no en tots els casos el model GMM dels coeficients 2 i 3 s'ajusta igual de bé a la parametrització del senyal. Això és podria millorar amb més iteracions o bé implenentant una iniciañotzació VQ de les guassianes.
