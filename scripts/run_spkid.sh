@@ -18,6 +18,7 @@ w=work
 name_exp=one # si poses two no matxacaras els resultats de l'experiment 1
 db=spk_8mu/speecon
 db_final=spk_8mu/sr_test
+world=users_and_others 
 
 # ------------------------
 # Usage
@@ -88,27 +89,34 @@ fi
 # - Select (or change) different features, options, etc. Make you best choice and try several options.
 ##\DONE
 compute_lp() {
-    db_sen=$1  #base de dades 
+    db_sen=$1  #per parametritzar base de test
     shift 
-    for filename in $(sort $*); do
+    for filename in $(cat $*); do
+        #filename in $(cat $lists/class/all.train $lists/class/all.test); do   
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         EXEC="wav2lp 8 $db_sen/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
 
-compute_lpcc() { #falta fer l'script
+compute_lpcc() { 
+    #db=$1  #per parametritzar base de test
+    #shift 
     for filename in $(cat $lists/class/all.train $lists/class/all.test); do
+        #filename in $(cat $lists/final/class.test  $lists/final/verif.test); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2lpcc 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        #EXEC="wav2lpcc 8 12 $db_final/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2lpcc 8 12 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
 
-compute_mfcc() { #falta fer l'script
-    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
+compute_mfcc() { 
+    #for filename in $(cat $lists/final/class.test  $lists/final/verif.test); do
+    for filename in $(cat $/class/all.train $lists/class/all.test); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        EXEC="wav2mfcc 8 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        #EXEC="wav2mfcc 13 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2mfcc 13 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
@@ -137,21 +145,21 @@ fi
 for cmd in $*; do
    echo `date`: $cmd '---';
 
-   if [[ $cmd == train ]]; then
+   if [[ $cmd == train ]]; then #WORKING
        ## @file
 	   # \TODO
 	   # Select (or change) good parameters for gmm_train
        ##\DONE afegim inicilització random (-i 0)
        for dir in $db/BLOCK*/SES* ; do
            name=${dir/*\/}
-           echo $name ---- 
-           gmm_train -i 0 -v 1 -T 0.001 -N 5 -m 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
+           echo $name ----  # N iteracions per definir m gaussianes
+           gmm_train -i 1 -t 0.001 -n 40 -v 1 -T 0.0001 -N 90 -m 60 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
            echo
        done
-   elif [[ $cmd == test ]]; then
+   elif [[ $cmd == test ]]; then #WORKING
        (gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/class/all.test | tee $w/class_${FEAT}_${name_exp}.log) || exit 1
 
-   elif [[ $cmd == classerr ]]; then
+   elif [[ $cmd == classerr ]]; then #WORKING
        if [[ ! -s $w/class_${FEAT}_${name_exp}.log ]] ; then
           echo "ERROR: $w/class_${FEAT}_${name_exp}.log not created"
           exit 1
@@ -169,9 +177,11 @@ for cmd in $*; do
 	   #
 	   # - The name of the world model will be used by gmm_verify in the 'verify' command below.
        ##\DONE mateixos paràmeters que a la crida anterior però canviant el directori de sortida
-       gmm_train -i 0 -v 1 -T 0.001 -N 5 -m 1 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/class/$world.train || exit 1
+       #gmm_train -v 1 -T 0.0001 -N 90 -m 60 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1
+       gmm_train -i 1 -t 0.001 -n 40 -v 1 -T 0.0001 -N 90 -m 60 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1
+       # gmm_train -i 1 -t 0.001 -n 40 -v 1 -T 0.0001 -N 90 -m 60 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
        
-   elif [[ $cmd == verify ]]; then  #NO FUNCIONA!!!
+   elif [[ $cmd == verify ]]; then  
        ## @file
 	   # \TODO 
 	   # Implement 'verify' in order to perform speaker verification
@@ -181,9 +191,8 @@ for cmd in $*; do
 	   #   * <code> gmm_verify ... > $w/verif_${FEAT}_${name_exp}.log </code>
 	   #   * <code> gmm_verify ... | tee $w/verif_${FEAT}_${name_exp}.log </code>
 
-       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w world $lists/gmm.list $lists/verif/all.test $lists/verif/all.test.candidates | tee $w/verif_${FEAT}_${name_exp}.log
-       ##\DONE -->  mirant el docopt de gmm_verify i exemples anteriors per veure quin directori posar a cada paràmetre
-
+       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/gmm.list $lists/verif/all.test $lists/verif/all.test.candidates | tee $w/verif_${FEAT}_${name_exp}.log || exit 1
+       
    elif [[ $cmd == verif_err ]]; then
        if [[ ! -s $w/verif_${FEAT}_${name_exp}.log ]] ; then
           echo "ERROR: $w/verif_${FEAT}_${name_exp}.log not created"
@@ -200,7 +209,8 @@ for cmd in $*; do
 	   # The list of users is the same as for the classification task. The list of files to be
 	   # recognized is lists/final/class.test
        compute_$FEAT $db_final $lists/final/class.test # parametritza senyals que volem reconeixer.
-       gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list lists/final/class.test | tee class_test.log || exit 1
+       #gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list lists/final/class.test | tee class_test.log || exit 1
+       gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/class.test | tee class_test.log || exit 1
     
    
    elif [[ $cmd == finalverif ]]; then
@@ -211,7 +221,7 @@ for cmd in $*; do
 	   # is lists/final/verif.test, and the list of users claimed by the test files is
 	   # lists/final/verif.test.candidates
        compute_$FEAT $db_final $lists/final/verif.test
-       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w world $lists/final/verif.users $lists/final/verif.test $lists/final/verif.test.candidates | tee $w/verif_final.log
+       gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/final/verif.users $lists/final/verif.test $lists/final/verif.test.candidates | tee $w/verif_final.log
        perl -ane 'print "$F[0]\t$F[1]\t";
                   if ($F[2] > -3.214) {print "1\n"}
                   else {print "0\n"}' $w/verif_final.log | tee verif_final.log

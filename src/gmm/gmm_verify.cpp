@@ -27,7 +27,11 @@ float verify(const GMM &gmm_candidate, const fmatrix &dat) {
 
   //TODO: implement verification score based on gmm of the candidate
 
-  return gmm_candidate.logprob(dat); // logprob de dat en gmm_candidate
+  float score = gmm_candidate.logprob(dat);
+  return score; // logprob de dat en gmm_candidate
+
+  //DONE
+
 }
 
 
@@ -41,6 +45,7 @@ float verify(const GMM &gmm_candidate, const GMM & gmm_world, const fmatrix &dat
   lprobbackground = gmm_world.logprob(dat);
  
   return lprobcand - lprobbackground;
+  // DONE
 }
 
 
