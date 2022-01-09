@@ -149,12 +149,12 @@ ejercicios indicados.**
 
 <img width="189" alt="image" src="https://user-images.githubusercontent.com/91891270/148704035-2c23b585-3f96-4192-88a8-d704b40787f7.png">
 
+Repetint el procès per a les altres dos parametritzacions:
 
-	Repetint el procès per a les altres dos parametritzacions:
+`pearson work/lpcc/BLOCK06/SES061/SA061S*.lpcc`
+	
 
-	`pearson work/lpcc/BLOCK06/SES061/SA061S*.lpcc` 
-
-	`pearson work/mfcc/BLOCK06/SES061/SA061S*.mfcc` 
+`pearson work/mfcc/BLOCK06/SES061/SA061S*.mfcc` 
 
   |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
@@ -230,11 +230,22 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
+ 
   
-                          | LP   | LPCC | MFCC |
+    |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
-  | Error Rate |8.28%| 0.76%  |  1.02%  |
+  | ERROR RATE |8.28%|  0.76%  |  1.02%  |
+  
+  
+  <img width="400" alt="image" src="https://user-images.githubusercontent.com/91891270/148704202-06ae2b36-d342-418d-9bb7-f7e32c02d60f.png">
+  
+  
+  <img width="291" alt="image" src="https://user-images.githubusercontent.com/91891270/148704210-95a3e210-7557-4b7f-ac29-4e740e720fc7.png">
+  
 
+  <img width="421" alt="image" src="https://user-images.githubusercontent.com/91891270/148704215-49bc7b31-7601-43c2-a775-b480cb3383af.png">
+
+  
 ### Verificación del locutor.
 
 Complete el código necesario para realizar verificación del locutor y optimice sus parámetros.
@@ -243,6 +254,10 @@ Complete el código necesario para realizar verificación del locutor y optimice
   de verificación de SPEECON. La tabla debe incluir el umbral óptimo, el número de falsas alarmas y de
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
+ 
+ <img width="335" alt="image" src="https://user-images.githubusercontent.com/91891270/148704432-447a0bd9-0e23-4cd8-819f-f5f3aee7acf8.png">
+
+ llindar =   -0.502328877884395
  
 ### Test final
 
