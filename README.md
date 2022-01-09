@@ -131,7 +131,9 @@ ejercicios indicados.**
 
 	 <img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703313-3f4a51a1-5085-4f3e-a758-61d35bff6a35.png">
 	 
+	 
 	 <img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703525-ddabbaa0-10d2-4a8d-96fe-118b76324388.png">
+	 
 	 
 	<img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703539-8c770049-5943-4c7e-a20c-1e8a1ffff677.png">
 
