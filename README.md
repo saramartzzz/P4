@@ -135,7 +135,7 @@ ejercicios indicados.**
 	 <img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703525-ddabbaa0-10d2-4a8d-96fe-118b76324388.png">
 	 
 	 
-	<img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703539-8c770049-5943-4c7e-a20c-1e8a1ffff677.png">
+	![Captura de pantalla 2022-01-10 a las 0 11 23](https://user-images.githubusercontent.com/80951224/148705068-990e8a6f-6462-4425-bf7f-cbc21cf3cc28.png)
 
   + **¿Cuál de ellas le parece que contiene más información?**
  
