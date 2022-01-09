@@ -41,12 +41,12 @@ fi
 # X2X -> Convertimos enteros de 16 bits (s) a reales 4 bytes (f)
 # LPC -> ventana de entrada (-l), orden del LPC (-m) y fichero de salida
 # Main command for feature extration
-sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
- $MFCC -l 240 -m $mfcc_order -n $filter_channel > $base.mfcc
+sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 |
+ $MFCC -l 240 -s 8 -m $mfcc_order -n $filter_channel > $base.mfcc
 
 
 # Our array files need a header with the number of cols and rows:
-ncol=$((mfcc_order+1)) # lpc p =>  (gain a1 a2 ... ap) 
+ncol=$((mfcc_order)) # lpc p =>  (gain a1 a2 ... ap) 
 nrow=`$X2X +fa < $base.mfcc | wc -l | perl -ne 'print $_/'$ncol', "\n";'` 
 
 # >> escribe en el fichero definitivo de salida a continuación de lo que ya había

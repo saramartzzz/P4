@@ -102,21 +102,22 @@ compute_lp() {
 compute_lpcc() { 
     #db=$1  #per parametritzar base de test
     #shift 
-    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
-        #filename in $(cat $lists/final/class.test  $lists/final/verif.test); do
+    for filename in $(cat $lists/final/class.test  $lists/final/verif.test); do
+    #filename in $(cat $lists/class/all.train $lists/class/all.test); do
+        
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
-        #EXEC="wav2lpcc 8 12 $db_final/$filename.wav $w/$FEAT/$filename.$FEAT"
-        EXEC="wav2lpcc 8 12 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2lpcc 25 25 $db_final/$filename.wav $w/$FEAT/$filename.$FEAT"
+        #EXEC="wav2lpcc 25 25 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
 
 compute_mfcc() { 
     #for filename in $(cat $lists/final/class.test  $lists/final/verif.test); do
-    for filename in $(cat $/class/all.train $lists/class/all.test); do
+    for filename in $(cat $lists/class/all.train $lists/class/all.test); do
         mkdir -p `dirname $w/$FEAT/$filename.$FEAT`
         #EXEC="wav2mfcc 13 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
-        EXEC="wav2mfcc 13 30 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
+        EXEC="wav2mfcc 18 25 $db/$filename.wav $w/$FEAT/$filename.$FEAT"
         echo $EXEC && $EXEC || exit 1
     done
 }
@@ -179,6 +180,7 @@ for cmd in $*; do
        ##\DONE mateixos paràmeters que a la crida anterior però canviant el directori de sortida
        #gmm_train -v 1 -T 0.0001 -N 90 -m 60 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1
        gmm_train -i 1 -t 0.001 -n 40 -v 1 -T 0.0001 -N 90 -m 60 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$world.gmm $lists/verif/$world.train || exit 1
+       
        # gmm_train -i 1 -t 0.001 -n 40 -v 1 -T 0.0001 -N 90 -m 60 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1
        
    elif [[ $cmd == verify ]]; then  
@@ -210,7 +212,7 @@ for cmd in $*; do
 	   # recognized is lists/final/class.test
        compute_$FEAT $db_final $lists/final/class.test # parametritza senyals que volem reconeixer.
        #gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list lists/final/class.test | tee class_test.log || exit 1
-       gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/class.test | tee class_test.log || exit 1
+       gmm_classify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm $lists/gmm.list $lists/final/class.test  | tee class_test.log || exit 1
     
    
    elif [[ $cmd == finalverif ]]; then
@@ -223,7 +225,7 @@ for cmd in $*; do
        compute_$FEAT $db_final $lists/final/verif.test
        gmm_verify -d $w/$FEAT -e $FEAT -D $w/gmm/$FEAT -E gmm -w $world $lists/final/verif.users $lists/final/verif.test $lists/final/verif.test.candidates | tee $w/verif_final.log
        perl -ane 'print "$F[0]\t$F[1]\t";
-                  if ($F[2] > -3.214) {print "1\n"}
+                  if ($F[2] > -0.502328877884395) {print "1\n"}
                   else {print "0\n"}' $w/verif_final.log | tee verif_final.log
 
    # If the command is not recognize, check if it is the name
