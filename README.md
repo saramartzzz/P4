@@ -240,9 +240,11 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
   
   
   Con LP
+  
   <img width="291" alt="image" src="https://user-images.githubusercontent.com/91891270/148704210-95a3e210-7557-4b7f-ac29-4e740e720fc7.png">
   
   Con LPCC
+  
   <img width="400" alt="image" src="https://user-images.githubusercontent.com/91891270/148704202-06ae2b36-d342-418d-9bb7-f7e32c02d60f.png">
   
   Con MFCC
