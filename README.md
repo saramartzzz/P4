@@ -239,12 +239,14 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
   | ERROR RATE |8.28%|  0.76%  |  0.89%  |
   
   
-  <img width="400" alt="image" src="https://user-images.githubusercontent.com/91891270/148704202-06ae2b36-d342-418d-9bb7-f7e32c02d60f.png">
-  
-  
+  Con LP
   <img width="291" alt="image" src="https://user-images.githubusercontent.com/91891270/148704210-95a3e210-7557-4b7f-ac29-4e740e720fc7.png">
   
-
+  Con LPCC
+  <img width="400" alt="image" src="https://user-images.githubusercontent.com/91891270/148704202-06ae2b36-d342-418d-9bb7-f7e32c02d60f.png">
+  
+  Con MFCC
+  
   ![Captura de pantalla 2022-01-10 a las 0 11 23](https://user-images.githubusercontent.com/80951224/148705068-990e8a6f-6462-4425-bf7f-cbc21cf3cc28.png)
 
   
