@@ -75,8 +75,8 @@ ejercicios indicados.**
 - **Escriba el *pipeline* principal usado para calcular los coeficientes cepstrales en escala Mel (MFCC) en su
   fichero <code>scripts/wav2mfcc.sh</code>:**
  
-	 `sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 | $WINDOW -l 240 -L 240 |
-	 $MFCC -l 240 -m $mfcc_order -n $filter_channel > $base.mfcc`
+	 `sox $inputfile -t raw -e signed -b 16 - | $X2X +sf | $FRAME -l 240 -p 80 |
+ $MFCC -l 240 -s 8 -m $mfcc_order -n $filter_channel > $base.mfcc`
 
 
 ### Extracción de características.
@@ -86,15 +86,16 @@ ejercicios indicados.**
      
   <img width="617" alt="image" src="https://user-images.githubusercontent.com/91891270/148525987-9726f45d-205d-47ec-ac4c-e5571512757e.png">
 
-	Observem un fitxer fmatrix qualsevol. Per tal de generar un fitxer on només hi hagi els valors d'aquests dos coeficients fem:
+	Observem un fitxer fmatrix qualsevoli veiem que els coeficients 2 i 3 es troben a la columan 4 i 5. Per tal de generar un fitxer on només hi hagi els valors d'aquests dos coeficients fem:
 
 	(Observem la parametrització de la sessió SES061)
 
-	`fmatrix_show work/lp/BLOCK06/SES061/*.lp | egrep '^\[' | cut -f2,3 > lp_coefs`
+	`fmatrix_show work/lp/BLOCK06/SES061/*.lp | egrep '^\[' | cut -f4,5 > lp_coefs`
 
-	`fmatrix_show work/lpcc/BLOCK06/SES061/*.lpcc | egrep '^\[' | cut -f2,3 > lpcc_coefs.txt`
+	`fmatrix_show work/lpcc/BLOCK06/SES061/*.lpcc | egrep '^\[' | cut -4,5 > lpcc_coefs.txt`
 
-	`fmatrix_show work/mfcc/BLOCK06/SES061/*.mfcc | egrep '^\[' | cut -f2,3 > mfcc_coefs.txt`
+	`fmatrix_show work/mfcc/BLOCK06/SES061/*.mfcc | egrep '^\[' | cut -f4,5 > mfcc_coefs.txt`
+	
 
 
  	 Una vegada generat el fitxer representarem els resultats via Matlab.
@@ -128,12 +129,13 @@ ejercicios indicados.**
 	ylabel('Coeficient 3')
 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-	  <img width="250" alt="image"  src="https://user-images.githubusercontent.com/91891270/148530000-5c30f1a3-98df-4018-9dc5-46a95e9e46fb.png">
-
-	  <img width="250" alt="image"  src="https://user-images.githubusercontent.com/91891270/148530002-38e870cf-b2ae-43f4-8496-82ee4aa83f6b.png"> 
-
-	  <img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148530004-9bc275bd-887c-4f36-858b-14443188a0b6.png">
-
+	 <img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703313-3f4a51a1-5085-4f3e-a758-61d35bff6a35.png">
+	 
+	 
+	 <img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703525-ddabbaa0-10d2-4a8d-96fe-118b76324388.png">
+	 
+	 
+	<img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703539-8c770049-5943-4c7e-a20c-1e8a1ffff677.png">
 
   + **¿Cuál de ellas le parece que contiene más información?**
  
@@ -145,20 +147,20 @@ ejercicios indicados.**
   El programa Pearson et diu quantes dimensions aporten les components adicionals calculades amb MFCC. Executant la comanda 
     `pearson work/lp/BLOCK06/SES061/SA061S*.lp` veiem que el la incorrelació entre els coeficients 2 i 3 és de:
 	  
-   <img width="123" alt="image" src="https://user-images.githubusercontent.com/91891270/148542286-2432f03d-1f99-4e9d-953a-c4b42e472b5f.png">
+ <img width="187" alt="image" src="https://user-images.githubusercontent.com/91891270/148704033-bdfa8d60-da14-4e2c-87b2-78cfac3aed16.png">
 
-   <img width="122" alt="image" src="https://user-images.githubusercontent.com/91891270/148542464-5d798e48-c196-45d4-8354-950bdd6381ef.png">
+<img width="189" alt="image" src="https://user-images.githubusercontent.com/91891270/148704035-2c23b585-3f96-4192-88a8-d704b40787f7.png">
 
+Repetint el procès per a les altres dos parametritzacions:
 
-	Repetint el procès per a les altres dos parametritzacions:
+`pearson work/lpcc/BLOCK06/SES061/SA061S*.lpcc`
+	
 
-	`pearson work/lpcc/BLOCK06/SES061/SA061S*.lpcc` 
-
-	`pearson work/mfcc/BLOCK06/SES061/SA061S*.mfcc` 
+`pearson work/mfcc/BLOCK06/SES061/SA061S*.mfcc` 
 
   |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
-  | &rho;<sub>x</sub>[2,3] |-0.82727|  0.108369    |   0.0328436   |
+  | &rho;<sub>x</sub>[2,3] |-0.82727|  0.241641    |  -0.162517  |
 
 + **Compare los resultados de <code>pearson</code> con los obtenidos gráficamente.**
 
@@ -168,8 +170,8 @@ ejercicios indicados.**
 
 	La teoria ens diu que els coeficients més òptims per realizar les parametritzacions són:
 	- LP:  sistema LP d'ordre 8 --> -m 8
-	- LPCC:  sistema LP d'ordre 8 amb ceptrsum d'ordre 12 --> -m 8 -M 12
-	- MFCC:  Banc de filtres d'ordre de 24 a 40, MFCC d'ordre 30 -->  -m 13 -n 40
+	- LPCC:  sistema LP d'ordre 25 amb ceptrsum d'ordre 25 --> -m 25 -M 25
+	- MFCC:  Banc de filtres d'ordre de 25, MFCC d'ordre 18-->  -m 18 -n 25
 
 ### Entrenamiento y visualización de los GMM.
 
@@ -180,18 +182,33 @@ Complete el código necesario para entrenar modelos GMM.
  
  A la següent imatge podem veure el model del locutor de la SES061: (parametritzat amb MFCC)
  
- `plot_gmm_feat work/gmm/mfcc/SES061.gmm -g blue -x 2 -y3 &`.
+ `plot_gmm_feat work/gmm/mfcc/SES061.gmm -g blue -x 4 -y 5 &`.
  
  
- <img width="440" alt="image" src="https://user-images.githubusercontent.com/91891270/148549584-8607a246-a4a6-462b-987c-7304dba8bd0b.png">
- 
+<img width="440" alt="image" src="https://user-images.githubusercontent.com/91891270/148703894-12e86168-8823-4fae-8348-f14ed819b824.png">
+
  Amb la comanda següent superposarem el model amb les mostres de la sessió per comprovar si s'ajusta bé o no:
  
- `plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK06/SES061/SA061S* -g blue -x 2 -y 3 &`
+ `plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK06/SES061/SA061S* -g blue -x 4 -y 5 &`
  
-<img width="431" alt="image" src="https://user-images.githubusercontent.com/91891270/148549831-9ac839b4-b15c-47af-b422-347912509c55.png">
+<img width="431" alt="image" src="https://user-images.githubusercontent.com/91891270/148703925-74ebe7b9-2089-4ad6-bd1d-3d6a176a6380.png">
  
-Veiem la dispesió de les mostres representa el mateix resultat que el que haviem obtingut amb Matlab i que el model és prou bo, ja que s'ajusta bé. Això que té sentit perquè hem pentrenat la GMM amb 60 gaussianes durant 90 interacions.
+Veiem la dispesió de les mostres representa el mateix resultat que el que haviem obtingut amb Matlab i que el model és prou bo, ja que s'ajusta bé.
+  
+  Els models s'han impelmentat amb el següent entranament i el resultat de l'adaptació de les GMM és le següent:
+  
+  ` gmm_train -i 1 -t 0.001 -n 40 -v 1 -T 0.0001 -N 90 -m 60 -d $w/$FEAT -e $FEAT -g $w/gmm/$FEAT/$name.gmm $lists/class/$name.train || exit 1`
+  
+   `plot_gmm_feat work/gmm/lp/SES061.gmm work/lp/BLOCK06/SES061/SA061S* -g blue -x 4 -y 5 &`
+  
+  <img width="450" alt="image" src="https://user-images.githubusercontent.com/91891270/148703675-eb37fedf-b017-4eae-bf77-d6f785e57a07.png">
+  
+   `plot_gmm_feat work/gmm/lpcc/SES061.gmm work/lpcc/BLOCK06/SES061/SA061S* -g blue -x 4 -y 5 &`
+  <img width="450" alt="image" src="https://user-images.githubusercontent.com/91891270/148703755-a2219172-107e-404d-a8a4-0223ad1c3ab1.png">
+  
+  `plot_gmm_feat work/gmm/mfcc/SES061.gmm work/mfcc/BLOCK06/SES061/SA061S* -g blue -x 4 -y 5 &`
+  <img width="450" alt="image" src="https://user-images.githubusercontent.com/91891270/148703646-a08d0231-56bf-4189-bf68-163fef138732.png">
+
   
 - **Inserte una gráfica que permita comparar los modelos y poblaciones de dos locutores distintos (la gŕafica
   de la página 20 del enunciado puede servirle de referencia del resultado deseado). Analice la capacidad
@@ -199,15 +216,13 @@ Veiem la dispesió de les mostres representa el mateix resultat que el que havie
   
   Hem representat (següint les comandes anteriors) els models l'altres sessions:
 
-`plot_gmm_feat work/gmm/mfcc/SES022.gmm work/mfcc/BLOCK02/SES022/SA022S* -g blue -x 2 -y 3 &`
-<img width="449" alt="image" src="https://user-images.githubusercontent.com/91891270/148566674-87472608-dcfb-440c-b4c3-1ec6482d7b85.png">
-  
-  `plot_gmm_feat work/gmm/mfcc/SES087.gmm work/mfcc/BLOCK08/SES087/SA087S* -g blue -x 2 -y 3 &`
-  
-<img width="454" alt="image" src="https://user-images.githubusercontent.com/91891270/148566781-0b37f10a-ecd3-4d9e-8d94-2a0892456334.png">
+`plot_gmm_feat work/gmm/mfcc/SES022.gmm work/mfcc/BLOCK02/SES022/SA022S* -g blue -x 4 -y 5 &`
 
-
-Veiem que no en tots els casos el model GMM dels coeficients 2 i 3 s'ajusta igual de bé a la parametrització del senyal. Això és podria millorar amb més iteracions o bé implenentant una iniciañotzació VQ de les guassianes.
+<img width="431" alt="image" src="https://user-images.githubusercontent.com/91891270/148703841-9e34a958-5ff5-4987-8adc-c3f4ce0b2b1c.png">
+  
+  `plot_gmm_feat work/gmm/mfcc/SES087.gmm work/mfcc/BLOCK08/SES087/SA087S* -g blue -x 4 -y 5 &`
+  
+<img width="440" alt="image" src="https://user-images.githubusercontent.com/91891270/148703866-250828f7-0179-49a6-8b8e-2d8d1323b251.png">
 
 
 
@@ -217,7 +232,22 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
 
 - Inserte una tabla con la tasa de error obtenida en el reconocimiento de los locutores de la base de datos
   SPEECON usando su mejor sistema de reconocimiento para los parámetros LP, LPCC y MFCC.
+ 
+  
+    |                        | LP   | LPCC | MFCC |
+  |------------------------|:----:|:----:|:----:|
+  | ERROR RATE |8.28%|  0.76%  |  1.02%  |
+  
+  
+  <img width="400" alt="image" src="https://user-images.githubusercontent.com/91891270/148704202-06ae2b36-d342-418d-9bb7-f7e32c02d60f.png">
+  
+  
+  <img width="291" alt="image" src="https://user-images.githubusercontent.com/91891270/148704210-95a3e210-7557-4b7f-ac29-4e740e720fc7.png">
+  
 
+  <img width="421" alt="image" src="https://user-images.githubusercontent.com/91891270/148704215-49bc7b31-7601-43c2-a775-b480cb3383af.png">
+
+  
 ### Verificación del locutor.
 
 Complete el código necesario para realizar verificación del locutor y optimice sus parámetros.
@@ -226,6 +256,10 @@ Complete el código necesario para realizar verificación del locutor y optimice
   de verificación de SPEECON. La tabla debe incluir el umbral óptimo, el número de falsas alarmas y de
   pérdidas, y el score obtenido usando la parametrización que mejor resultado le hubiera dado en la tarea
   de reconocimiento.
+ 
+ <img width="335" alt="image" src="https://user-images.githubusercontent.com/91891270/148704432-447a0bd9-0e23-4cd8-819f-f5f3aee7acf8.png">
+
+ llindar =   -0.502328877884395
  
 ### Test final
 
