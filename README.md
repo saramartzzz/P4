@@ -134,8 +134,8 @@ ejercicios indicados.**
 	 
 	 <img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148703525-ddabbaa0-10d2-4a8d-96fe-118b76324388.png">
 	 
-	 
-	![Captura de pantalla 2022-01-10 a las 0 11 23](https://user-images.githubusercontent.com/80951224/148705068-990e8a6f-6462-4425-bf7f-cbc21cf3cc28.png)
+	 <img width="250" alt="image" src="https://user-images.githubusercontent.com/91891270/148705201-dcb236c4-f33e-4e93-bf88-b6015fc1f0c5.png">
+	
 
   + **¿Cuál de ellas le parece que contiene más información?**
  
@@ -236,7 +236,7 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
   
     |                        | LP   | LPCC | MFCC |
   |------------------------|:----:|:----:|:----:|
-  | ERROR RATE |8.28%|  0.76%  |  1.02%  |
+  | ERROR RATE |8.28%|  0.76%  |  0.89%  |
   
   
   <img width="400" alt="image" src="https://user-images.githubusercontent.com/91891270/148704202-06ae2b36-d342-418d-9bb7-f7e32c02d60f.png">
@@ -245,7 +245,7 @@ Complete el código necesario para realizar reconociminto del locutor y optimice
   <img width="291" alt="image" src="https://user-images.githubusercontent.com/91891270/148704210-95a3e210-7557-4b7f-ac29-4e740e720fc7.png">
   
 
-  <img width="421" alt="image" src="https://user-images.githubusercontent.com/91891270/148704215-49bc7b31-7601-43c2-a775-b480cb3383af.png">
+  ![Captura de pantalla 2022-01-10 a las 0 11 23](https://user-images.githubusercontent.com/80951224/148705068-990e8a6f-6462-4425-bf7f-cbc21cf3cc28.png)
 
   
 ### Verificación del locutor.
