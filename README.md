@@ -171,7 +171,7 @@ Repetint el procès per a les altres dos parametritzacions:
 	La teoria ens diu que els coeficients més òptims per realizar les parametritzacions són:
 	- LP:  sistema LP d'ordre 8 --> -m 8
 	- LPCC:  sistema LP d'ordre 25 amb ceptrsum d'ordre 25 --> -m 25 -M 25
-	- MFCC:  Banc de filtres d'ordre de 20, MFCC d'ordre 18-->  -m 18 -n 20
+	- MFCC:  Banc de filtres d'ordre de 25, MFCC d'ordre 18-->  -m 18 -n 25
 
 ### Entrenamiento y visualización de los GMM.
 
